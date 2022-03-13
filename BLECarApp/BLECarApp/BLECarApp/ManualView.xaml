@@ -17,7 +17,7 @@
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="ConnectionBtn" Text="Discover!" Grid.Row="0" Grid.Column="0"/>
+                <Button x:Name="ConnectionBtn" Text="Connect!" Grid.Row="0" Grid.Column="0"/>
                 <Button x:Name="SendDataBtn" Text="Send Test!" Grid.Row="0" Grid.Column="1"/>
                 <Button x:Name="SwitchViewBtn" Text="Przełącz!" Grid.Row="0" Grid.Column="2"/>
 

@@ -13,6 +13,12 @@ namespace BLECarApp
     public partial class ManualView : ContentPage
     {
         private BtConnector bt;
+
+        private bool connected = false;
+
+        private byte SPEED = 0;
+        private sbyte DIR = 0;
+
         public ManualView()
         {
             InitializeComponent();
@@ -29,45 +35,86 @@ namespace BLECarApp
 
         private void RightBtn_Clicked(object sender, EventArgs e)
         {
-            bt.Send(new byte[] { 0xEE, 0xEE, 0xEE }, 3);
+            if (DIR <= 50)
+                DIR += 10;
+
+            SendCommands();
         }
 
         private void LeftBtn_Clicked(object sender, EventArgs e)
         {
-            bt.Send(new byte[] { 0xDD, 0xDD, 0xDD }, 3);
+            if (DIR >= -50)
+                DIR -= 10;
+
+            SendCommands();
         }
 
         private void StopBtn_Clicked(object sender, EventArgs e)
         {
-            bt.Send(new byte[] { 0xCC, 0xCC, 0xCC }, 3);
+            SPEED = 0;
+            DIR = 0;
+
+            SendCommands();
         }
 
         private void SpeedDwBtn_Clicked(object sender, EventArgs e)
         {
-            bt.Send(new byte[] { 0xBB, 0xBB, 0xBB }, 3);
+            if (SPEED >= 10)
+                SPEED -= 10;
+
+            SendCommands();
         }
 
         private void SpeedUpBtn_Clicked(object sender, EventArgs e)
         {
-            bt.Send(new byte[] { 0xAA, 0xAA, 0xAA }, 3);
+            if (SPEED < 100)
+                SPEED += 10;
+
+            SendCommands();
         }
 
-        private void OnConnection(string text)
+        private void OnConnection()
         {
-            ConnectionBtn.Text = text;
+            ConnectionBtn.Text = "Disconnect!";
+            connected = true;
+        }
+
+        private void Disconnect()
+        {
+            DIR = 0;
+            SPEED = 0;
+
+            bt.Disconnect();
+            ConnectionBtn.Text = "Connect!";
+            connected = false;
         }
 
         private void ConnectBtn_Clicked(object sender, EventArgs e)
         {
-            if (bt == null)
-                bt = new BtConnector();
+            if (connected)
+            {
+                if(bt != null)
+                    Disconnect();
+            }
+            else
+            {
+                if (bt == null)
+                    bt = new BtConnector();
 
-            bt.Connect(OnConnection);
+                bt.Connect(OnConnection);
+            }
+        }
+
+        private void SendCommands()
+        {
+            if(bt != null)
+                bt.Send(new byte[] { 0xAA, SPEED, (byte)DIR }, 3);
         }
 
         private void SendDataBtn_Clicked(object sender, EventArgs e)
         {
-            bt.Send(new byte[] { 0xAA, 0xAA, 0xAA }, 3);
+            if(bt != null)
+                bt.Send(new byte[] { 0xAA, 0xAA, 0xAA }, 3);
         }
     }
 }

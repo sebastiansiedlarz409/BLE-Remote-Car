@@ -9,6 +9,7 @@ namespace BLECarApp
 {
     public class BtConnector
     {
+        IAdapter adapter;
         private IDevice car = null;
         private IGattCharacteristic cmdCharacteristic;
         private IGattCharacteristic statusCharacteristic;
@@ -16,15 +17,15 @@ namespace BLECarApp
 
         public BtConnector()
         {
-
+            adapter = CrossBleAdapter.Current;
         }
 
-        public void Connect(Action<string> action)
+        public void Connect(Action action)
         {
             Debug.WriteLine("Scanning...");
             try
             {
-                CrossBleAdapter.Current.ScanForUniqueDevices().Subscribe(result =>
+                adapter.ScanForUniqueDevices().Subscribe(result =>
                 {
                     if (result.Name == null)
                         return;
@@ -33,10 +34,10 @@ namespace BLECarApp
                     {
                         Debug.WriteLine($"Car found {result.Name}");
                         car = result;
-                        action("Found!");
+                        action();
 
                         car.Connect();
-                        action("Connected!");
+                        action();
 
                         car.WhenAnyCharacteristicDiscovered().Subscribe(chr =>
                         {
@@ -50,7 +51,6 @@ namespace BLECarApp
                                 statusCharacteristic = chr;
                                 Debug.WriteLine("Status characteristic found");
                             }
-                            //action("Ready!");
                         });
                     }
                     else
@@ -62,6 +62,18 @@ namespace BLECarApp
             catch (ArgumentException)
             {
 
+            }
+        }
+
+        public void Disconnect()
+        {
+            if(car != null)
+            {
+                if (car.IsConnected())
+                {
+                    adapter.StopScan();
+                    car.CancelConnection();
+                }
             }
         }
 

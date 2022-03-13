@@ -47,6 +47,8 @@ void hci_le_connection_complete_event(uint8_t Status, uint16_t Connection_Handle
 //this is event callback for disconnection override
 void hci_disconnection_complete_event(uint8_t Status, uint16_t Connection_Handle, uint8_t Reason){
 	connected = 0;
+	discoverable = 0;
+
 	BTLE_DBG("BTLE Remote peer disconnected...\r\n");
 }
 
