@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Android.Views;
 
 namespace BLECarApp.Droid
 {
@@ -17,6 +18,7 @@ namespace BLECarApp.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             this.RequestedOrientation = ScreenOrientation.Landscape;
 
             LoadApplication(new App());

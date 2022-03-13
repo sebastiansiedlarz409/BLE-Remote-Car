@@ -24,13 +24,12 @@ namespace BLECarApp
             InitializeComponent();
 
             ConnectionBtn.Clicked += ConnectBtn_Clicked;
-            SendDataBtn.Clicked += SendDataBtn_Clicked;
 
             SpeedUpBtn.Clicked += SpeedUpBtn_Clicked;
             SpeedDwBtn.Clicked += SpeedDwBtn_Clicked;
             StopBtn.Clicked += StopBtn_Clicked;
-            LeftBtn.Clicked += LeftBtn_Clicked;
-            RightBtn.Clicked += RightBtn_Clicked;
+
+            ParamsBtn.IsEnabled = false;
         }
 
         private void RightBtn_Clicked(object sender, EventArgs e)
@@ -109,12 +108,6 @@ namespace BLECarApp
         {
             if(bt != null)
                 bt.Send(new byte[] { 0xAA, SPEED, (byte)DIR }, 3);
-        }
-
-        private void SendDataBtn_Clicked(object sender, EventArgs e)
-        {
-            if(bt != null)
-                bt.Send(new byte[] { 0xAA, 0xAA, 0xAA }, 3);
         }
     }
 }

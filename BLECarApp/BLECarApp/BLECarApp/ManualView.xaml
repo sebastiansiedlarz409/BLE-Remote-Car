@@ -1,33 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundImageSource="background.jpg"
              x:Class="BLECarApp.ManualView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="buttonStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="Padding" Value="3, 3, 3, 3"/>
+                <Setter Property="TextColor" Value="#000000"/>
+            </Style>
+
+            <Style x:Key="navsStyle" TargetType="ImageButton">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BackgroundColor" Value="#3f3f3f"/>
+                <Setter Property="Opacity" Value="0.9"/>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Margin="10,10,10,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <Grid VerticalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="2*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="5*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="ConnectionBtn" Text="Connect!" Grid.Row="0" Grid.Column="0"/>
-                <Button x:Name="SendDataBtn" Text="Send Test!" Grid.Row="0" Grid.Column="1"/>
-                <Button x:Name="SwitchViewBtn" Text="Przełącz!" Grid.Row="0" Grid.Column="2"/>
+                <Button x:Name="ConnectionBtn" Text="Connect!" Grid.Row="0" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
+                <Button x:Name="ParamsBtn" Text="X: 0, Y: 0, Z: 0" Grid.Row="0" Grid.Column="1" Style="{StaticResource buttonStyle}"/>
+                <Button x:Name="SwitchViewBtn" Text="Przełącz!" Grid.Row="0" Grid.Column="2" Style="{StaticResource buttonStyle}"/>
 
-                <Button x:Name="SpeedUpBtn" Text="SPEED UP!" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
-
-                <Button x:Name="StopBtn" Text="STOP!" Grid.Row="2" Grid.Column="1"/>
-                <Button x:Name="LeftBtn" Text="LEFT!" Grid.Row="2" Grid.Column="0"/>
-                <Button x:Name="RightBtn" Text="RIGHT!" Grid.Row="2" Grid.Column="2"/>
-
-                <Button x:Name="SpeedDwBtn" Text="SPEED DW!" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+                <Button x:Name="SpeedUpBtn" Text="ACCELERATE!" Grid.Row="1" Grid.Column="2"/>
+                <Button x:Name="StopBtn" Text="STOP!" Grid.Row="1" Grid.Column="1"/>
+                <Button x:Name="SpeedDwBtn" Text="BREAK!" Grid.Row="1" Grid.Column="0"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>
