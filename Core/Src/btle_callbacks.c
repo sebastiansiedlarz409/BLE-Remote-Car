@@ -1,4 +1,5 @@
 #include "btle_callbacks.h"
+#include "checksum.h"
 
 #include <stdio.h>
 #include <stdint.h>

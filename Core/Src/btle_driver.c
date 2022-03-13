@@ -133,33 +133,38 @@ uint8_t BTLE_AddServices(void){
 	const uint8_t mainServiceTX[16] = {0x66,0x9a,0x0c,0x20,0x00,0x08,0x96,0x9e,0xe2,0x11,0x9e,0xb1,0x41,0x42,0x45,0x53};
 	const uint8_t mainCharTX[16] = {0x66,0x9a,0x0c,0x20,0x00,0x08,0x96,0x9e,0xe2,0x11,0x9e,0xb2,0x41,0x42,0x45,0x53};
 
-	const uint8_t mainServiceRX[16] = {0x66,0x9a,0x0c,0x20,0x00,0x08,0x96,0x9e,0xe2,0x11,0x9e,0xb3,0x41,0x42,0x45,0x53};
-	const uint8_t mainCharRX[16] = {0x66,0x9a,0x0c,0x20,0x00,0x08,0x96,0x9e,0xe2,0x11,0x9e,0xb4,0x41,0x42,0x45,0x53};
+	const uint8_t mainServiceRX[16] = {0x76,0x9a,0x0c,0x20,0x00,0x08,0x96,0x9e,0xe2,0x11,0x9e,0xb3,0x41,0x42,0x45,0x53};
+	const uint8_t mainCharRX[16] = {0x76,0x9a,0x0c,0x20,0x00,0x08,0x96,0x9e,0xe2,0x11,0x9e,0xb4,0x41,0x42,0x45,0x53};
 
 	Service_UUID_t service_uuidTx;
 	Char_UUID_t chr_uuidTx;
 	Service_UUID_t service_uuidRx;
 	Char_UUID_t chr_uuidRx;
 
-	BLUENRG_memcpy(service_uuidRx.Service_UUID_128, mainServiceRX, 16);
+	BLUENRG_memcpy(&service_uuidRx.Service_UUID_128, mainServiceRX, 16);
 	ret = aci_gatt_add_service(UUID_TYPE_128, &service_uuidRx, PRIMARY_SERVICE, max_attribute_records, &mainServiceRxHandle);
 	if (ret != BLE_STATUS_SUCCESS) goto fail;
+	BTLE_DBG("BTLE Add Service: %u\r\n", mainServiceRxHandle);
 
-	BLUENRG_memcpy(chr_uuidRx.Char_UUID_128, mainCharRX, 16);
+	BLUENRG_memcpy(&chr_uuidRx.Char_UUID_128, mainCharRX, 16);
 	ret =  aci_gatt_add_char(mainServiceRxHandle, UUID_TYPE_128, &chr_uuidRx, CHAR_VALUE_LENGTH, CHAR_PROP_WRITE|CHAR_PROP_WRITE_WITHOUT_RESP, ATTR_PERMISSION_NONE, GATT_NOTIFY_ATTRIBUTE_WRITE,16, 1, &mainCharRxHandle);
 	if (ret != BLE_STATUS_SUCCESS) goto fail;
+	BTLE_DBG("BTLE Add Char: %u\r\n", mainCharRxHandle);
 
-	BLUENRG_memcpy(service_uuidTx.Service_UUID_128, mainServiceTX, 16);
+	BLUENRG_memcpy(&service_uuidTx.Service_UUID_128, mainServiceTX, 16);
 	ret = aci_gatt_add_service(UUID_TYPE_128, &service_uuidTx, PRIMARY_SERVICE, max_attribute_records, &mainServiceTxHandle);
 	if (ret != BLE_STATUS_SUCCESS) goto fail;
+	BTLE_DBG("BTLE Add Service: %u\r\n", mainServiceTxHandle);
 
-	BLUENRG_memcpy(chr_uuidTx.Char_UUID_128, mainCharTX, 16);
+	BLUENRG_memcpy(&chr_uuidTx.Char_UUID_128, mainCharTX, 16);
 	ret =  aci_gatt_add_char(mainServiceTxHandle, UUID_TYPE_128, &chr_uuidTx, CHAR_VALUE_LENGTH, CHAR_PROP_READ, ATTR_PERMISSION_NONE, GATT_NOTIFY_READ_REQ_AND_WAIT_FOR_APPL_RESP,16, 1, &mainCharTxHandle);
 	if (ret != BLE_STATUS_SUCCESS) goto fail;
+	BTLE_DBG("BTLE Add Char: %u\r\n", mainCharTxHandle);
 
 	return 0;
 
 	fail:
+	BTLE_DBG("BTLE Adding Service/Characteristic Failed: %u\r\n", ret);
 	return 255;
 }
 

@@ -47,7 +47,7 @@
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-
+extern uint8_t connected;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -107,6 +107,13 @@ int main(void)
   while (1)
   {
 	BTLE_Process();
+
+	if(connected){
+		HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+	}
+	else{
+		HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+	}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
