@@ -9,11 +9,11 @@ namespace BLECarApp
 {
     public class BtConnector
     {
-        IAdapter adapter;
+        private readonly IAdapter adapter;
         private IDevice car = null;
         private IGattCharacteristic cmdCharacteristic;
         private IGattCharacteristic statusCharacteristic;
-        private string carName = "BTLE-REMOTE-CAR";
+        private readonly string carName = "BTLE-REMOTE-CAR";
 
         public BtConnector()
         {

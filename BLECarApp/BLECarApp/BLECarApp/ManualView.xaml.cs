@@ -20,10 +20,7 @@ namespace BLECarApp
         private sbyte DIR = 0;
         private byte FORWARD = 1;
 
-        private int X = 0;
         private int Y = 0;
-        private int Z = 0;
-        private int accSendCounter = 0;
 
         public ManualView()
         {
@@ -46,22 +43,14 @@ namespace BLECarApp
 
         private void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
-            X = (int)((e.Reading.Acceleration.X*100)/2);
-            Y = (int)((e.Reading.Acceleration.Y*100)/2);
-            Z = (int)((e.Reading.Acceleration.Z*100)/2);
+            Y = (int)((e.Reading.Acceleration.Y*100));
 
-            /*if(SPEED >= 30)
+            if(SPEED >= 30)
                 DIR = (sbyte)Y;
 
-            ParamsBtn.Text = $"S: {SPEED} X: {X}, Y: {DIR}, Z: {Z}";
+            ParamsBtn.Text = $"S: {SPEED} DIR: {Y}";
 
-            accSendCounter++;
-
-            if(accSendCounter == 2)
-            {
-                accSendCounter = 0;
-                SendCommands();
-            }*/
+            SendCommands();
         }
 
         private void DirBtn_Clicked(object sender, EventArgs e)
@@ -127,6 +116,7 @@ namespace BLECarApp
         private void OnConnection()
         {
             ConnectionBtn.Text = "Disconnect!";
+            ConnectionBtn.TextColor = Color.Green;
             connected = true;
         }
 
@@ -138,6 +128,7 @@ namespace BLECarApp
 
             bt.Disconnect();
             ConnectionBtn.Text = "Connect!";
+            ConnectionBtn.TextColor = Color.Red;
             connected = false;
         }
 
