@@ -49,6 +49,8 @@ void hci_disconnection_complete_event(uint8_t Status, uint16_t Connection_Handle
 	connected = 0;
 	discoverable = 0;
 
+	BTLE_DisconnectHandler();
+
 	BTLE_DBG("BTLE Remote peer disconnected...\r\n");
 }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,6 +18,12 @@ namespace BLECarApp
 
         private byte SPEED = 0;
         private sbyte DIR = 0;
+        private byte FORWARD = 1;
+
+        private int X = 0;
+        private int Y = 0;
+        private int Z = 0;
+        private int accSendCounter = 0;
 
         public ManualView()
         {
@@ -28,8 +34,44 @@ namespace BLECarApp
             SpeedUpBtn.Clicked += SpeedUpBtn_Clicked;
             SpeedDwBtn.Clicked += SpeedDwBtn_Clicked;
             StopBtn.Clicked += StopBtn_Clicked;
+            DirBtn.Clicked += DirBtn_Clicked;
 
             ParamsBtn.IsEnabled = false;
+
+            if (!Accelerometer.IsMonitoring)
+                Accelerometer.Start(SensorSpeed.Default);
+
+            Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;
+        }
+
+        private void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
+        {
+            X = (int)((e.Reading.Acceleration.X*100)/2);
+            Y = (int)((e.Reading.Acceleration.Y*100)/2);
+            Z = (int)((e.Reading.Acceleration.Z*100)/2);
+
+            /*if(SPEED >= 30)
+                DIR = (sbyte)Y;
+
+            ParamsBtn.Text = $"S: {SPEED} X: {X}, Y: {DIR}, Z: {Z}";
+
+            accSendCounter++;
+
+            if(accSendCounter == 2)
+            {
+                accSendCounter = 0;
+                SendCommands();
+            }*/
+        }
+
+        private void DirBtn_Clicked(object sender, EventArgs e)
+        {
+            SPEED = 0;
+            DIR = 0;
+
+            FORWARD = FORWARD == (byte)1 ? (byte)0 : (byte)1;
+
+            SendCommands();
         }
 
         private void RightBtn_Clicked(object sender, EventArgs e)
@@ -59,7 +101,12 @@ namespace BLECarApp
         private void SpeedDwBtn_Clicked(object sender, EventArgs e)
         {
             if (SPEED >= 10)
-                SPEED -= 10;
+            {
+                if (SPEED <= 40)
+                    SPEED = 0;
+                else
+                    SPEED -= 10;
+            }
 
             SendCommands();
         }
@@ -67,7 +114,12 @@ namespace BLECarApp
         private void SpeedUpBtn_Clicked(object sender, EventArgs e)
         {
             if (SPEED < 100)
-                SPEED += 10;
+            {
+                if (SPEED < 40)
+                    SPEED = 40;
+                else
+                    SPEED += 10;
+            }
 
             SendCommands();
         }
@@ -82,6 +134,7 @@ namespace BLECarApp
         {
             DIR = 0;
             SPEED = 0;
+            FORWARD = 1;
 
             bt.Disconnect();
             ConnectionBtn.Text = "Connect!";
@@ -107,7 +160,7 @@ namespace BLECarApp
         private void SendCommands()
         {
             if(bt != null)
-                bt.Send(new byte[] { 0xAA, SPEED, (byte)DIR }, 3);
+                bt.Send(new byte[] { 0xAA, SPEED, (byte)DIR, FORWARD }, 4);
         }
     }
 }

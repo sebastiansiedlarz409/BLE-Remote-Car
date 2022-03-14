@@ -59,6 +59,7 @@ extern uint8_t discoverable;
 
 uint8_t SPEED = 0;
 int8_t DIR = 0;
+uint8_t FORWARD = 1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -132,10 +133,42 @@ void SetDirection(uint8_t axis, uint8_t dir){
 }
 
 void DriveCar(void){
-	SetDirection(LEFT, FRONT);
-	SetDirection(RIGHT, FRONT);
-	SetPWM(1, SPEED);
-	SetPWM(2, SPEED);
+	if(FORWARD == 1){
+		SetDirection(LEFT, FRONT);
+		SetDirection(RIGHT, FRONT);
+	}
+	else{
+		SetDirection(LEFT, BACK);
+		SetDirection(RIGHT, BACK);
+	}
+
+
+	uint8_t sl = SPEED;
+	uint8_t sr = SPEED;
+
+	uint8_t d = 0;
+	if(DIR<0){
+		d = (uint8_t)(DIR * -1);
+	}
+	else{
+		d = DIR;
+	}
+
+	if(DIR >= 0){
+		if((sl-d) >= 0)
+			sl -= d;
+		if((sr+d) <= 100)
+			sr += d;
+	}
+	else{
+		if((sl+d) <= 100)
+			sl += d;
+		if((sr-d) >= 0)
+			sr -= d;
+	}
+
+	SetPWM(1, sl);
+	SetPWM(2, sr);
 }
 /* USER CODE END PFP */
 
@@ -237,7 +270,7 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
@@ -273,7 +306,7 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 7200-1;
+  htim1.Init.Prescaler = 3600-1;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 100-1;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;

@@ -13,6 +13,13 @@ extern HANDLE mainCharRxHandle;
 
 extern uint8_t SPEED;
 extern int8_t DIR;
+extern uint8_t FORWARD;
+
+void BTLE_DisconnectHandler(void){
+	SPEED = 0;
+	DIR = 0;
+	FORWARD = 1;
+}
 
 void BTLE_CommandsHandler(uint8_t size, uint8_t *buffer){
 	if(buffer[0] == 0)
@@ -28,9 +35,11 @@ void BTLE_CommandsHandler(uint8_t size, uint8_t *buffer){
 	}
 
 	if(buffer[0] == 0xAA){
-		printf("CMD: SPEED %u DIR %d\r\n", buffer[1], (int8_t)buffer[2]);
+		printf("CMD: SPEED %u DIR %d %s\r\n", buffer[1], (int8_t)buffer[2], buffer[3] == 1 ? "FORWARD" : "BACKWARD");
+
 		SPEED = buffer[1];
 		DIR = (int8_t)buffer[2];
+		FORWARD = buffer[3];
 	}
 
 	memset(buffer, 0, size);
