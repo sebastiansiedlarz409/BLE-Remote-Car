@@ -11,6 +11,9 @@
 extern HANDLE mainCharTxHandle;
 extern HANDLE mainCharRxHandle;
 
+extern uint8_t SPEED;
+extern int8_t DIR;
+
 void BTLE_CommandsHandler(uint8_t size, uint8_t *buffer){
 	if(buffer[0] == 0)
 		return;
@@ -26,6 +29,8 @@ void BTLE_CommandsHandler(uint8_t size, uint8_t *buffer){
 
 	if(buffer[0] == 0xAA){
 		printf("CMD: SPEED %u DIR %d\r\n", buffer[1], (int8_t)buffer[2]);
+		SPEED = buffer[1];
+		DIR = (int8_t)buffer[2];
 	}
 
 	memset(buffer, 0, size);
