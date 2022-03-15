@@ -16535,37 +16535,37 @@ namespace BLECarApp.Droid
 			public const int design_snackbar_background = 2131165284;
 			
 			// aapt resource value: 0x7F070065
-			public const int dir_arrow = 2131165285;
+			public const int down_arrow = 2131165285;
 			
 			// aapt resource value: 0x7F070066
-			public const int down_arrow = 2131165286;
+			public const int gearbox = 2131165286;
 			
 			// aapt resource value: 0x7F070067
-			public const int gearbox = 2131165287;
+			public const int handbrake = 2131165287;
 			
 			// aapt resource value: 0x7F070068
-			public const int handbrake = 2131165288;
+			public const int ic_arrow_down_24dp = 2131165288;
 			
 			// aapt resource value: 0x7F070069
-			public const int ic_arrow_down_24dp = 2131165289;
+			public const int ic_clock_black_24dp = 2131165289;
 			
 			// aapt resource value: 0x7F07006A
-			public const int ic_clock_black_24dp = 2131165290;
+			public const int ic_keyboard_black_24dp = 2131165290;
 			
 			// aapt resource value: 0x7F07006B
-			public const int ic_keyboard_black_24dp = 2131165291;
+			public const int ic_mtrl_checked_circle = 2131165291;
 			
 			// aapt resource value: 0x7F07006C
-			public const int ic_mtrl_checked_circle = 2131165292;
+			public const int ic_mtrl_chip_checked_black = 2131165292;
 			
 			// aapt resource value: 0x7F07006D
-			public const int ic_mtrl_chip_checked_black = 2131165293;
+			public const int ic_mtrl_chip_checked_circle = 2131165293;
 			
 			// aapt resource value: 0x7F07006E
-			public const int ic_mtrl_chip_checked_circle = 2131165294;
+			public const int ic_mtrl_chip_close_circle = 2131165294;
 			
 			// aapt resource value: 0x7F07006F
-			public const int ic_mtrl_chip_close_circle = 2131165295;
+			public const int left = 2131165295;
 			
 			// aapt resource value: 0x7F070070
 			public const int material_cursor_drawable = 2131165296;
@@ -16670,7 +16670,7 @@ namespace BLECarApp.Droid
 			public const int preference_list_divider_material = 2131165329;
 			
 			// aapt resource value: 0x7F070092
-			public const int stop_button = 2131165330;
+			public const int right = 2131165330;
 			
 			// aapt resource value: 0x7F070093
 			public const int test_custom_background = 2131165331;

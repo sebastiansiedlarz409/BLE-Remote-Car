@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundImageSource="background.jpg"
-             x:Class="BLECarApp.ManualView"
+             x:Class="BLECarApp.ButtonsView"
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -37,19 +37,23 @@
                     <RowDefinition Height="4*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="ConnectionBtn" Text="Connect!" Grid.Row="0" Grid.Column="0" Style="{StaticResource buttonStyle}" TextColor="Red"/>
-                <Button x:Name="ParamsBtn" Text="S: 0 DIR: 0 FORWARD" Grid.Row="0" Grid.Column="1" Style="{StaticResource buttonStyle}"/>
-                <Button x:Name="SwitchViewBtn" Text="Przełącz!" Grid.Row="0" Grid.Column="2" Style="{StaticResource buttonStyle}"/>
+                <Button x:Name="ConnectionBtn" Text="CONNECT!" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource buttonStyle}" TextColor="Red"/>
+                <Button x:Name="ParamsBtn" Text="S: 0 DIR: 0 FORWARD" Grid.Row="0" Grid.Column="2" Style="{StaticResource buttonStyle}"/>
+                <Button x:Name="SwitchViewBtn" Text="Przełącz!" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Style="{StaticResource buttonStyle}"/>
 
-                <ImageButton x:Name="SpeedUpBtn" Source="up_arrow.png" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource imageButtonStyle}"/>
-                <ImageButton x:Name="StopBtn" Source="handbrake.png" Grid.Row="1" Grid.Column="1" Style="{StaticResource imageButtonStyle}"/>
-                <ImageButton x:Name="DirBtn" Source="gearbox.png" Grid.Row="2" Grid.Column="1" Style="{StaticResource imageButtonStyle}"/>
-                <ImageButton x:Name="SpeedDwBtn" Source="down_arrow.png" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Style="{StaticResource imageButtonStyle}"/>
+                <ImageButton x:Name="LeftBtn" Source="left.png" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Style="{StaticResource imageButtonStyle}"/>
+                <ImageButton x:Name="SpeedDwBtn" Source="down_arrow.png" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource imageButtonStyle}"/>
+                <ImageButton x:Name="StopBtn" Source="handbrake.png" Grid.Row="1" Grid.Column="2" Style="{StaticResource imageButtonStyle}"/>
+                <ImageButton x:Name="DirBtn" Source="gearbox.png" Grid.Row="2" Grid.Column="2" Style="{StaticResource imageButtonStyle}"/>
+                <ImageButton x:Name="SpeedUpBtn" Source="up_arrow.png" Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Style="{StaticResource imageButtonStyle}"/>
+                <ImageButton x:Name="RightBtn" Source="right.png" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" Style="{StaticResource imageButtonStyle}"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

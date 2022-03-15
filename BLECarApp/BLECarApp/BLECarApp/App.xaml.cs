@@ -10,7 +10,7 @@ namespace BLECarApp
         {
             InitializeComponent();
 
-            MainPage = new ManualView();
+            MainPage = new NavigationPage(new ManualView());
         }
 
         protected override void OnStart()
