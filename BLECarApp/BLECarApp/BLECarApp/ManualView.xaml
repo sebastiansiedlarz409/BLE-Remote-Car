@@ -9,14 +9,15 @@
             <Style x:Key="buttonStyle" TargetType="Button">
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="TextColor" Value="#000000"/>
-                <Setter Property="BackgroundColor" Value="DodgerBlue" />
-                <Setter Property="Opacity" Value="0.5" />
+                <Setter Property="BackgroundColor" Value="#660066ff" />
             </Style>
 
             <Style x:Key="imageButtonStyle" TargetType="ImageButton">
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="Padding" Value="5,10,5,10" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
+                <!--<Setter Property="BackgroundColor" Value="#00ff80" />-->
+                <Setter Property="BackgroundColor" Value="#66ffbb99" />
+                <!--<Setter Property="BackgroundColor" Value="Wheat" />-->
                 <Setter Property="Opacity" Value="0.9" />
             </Style>
 
@@ -47,8 +48,8 @@
                 <Button x:Name="SwitchViewBtn" Text="Przełącz!" Grid.Row="0" Grid.Column="2" Style="{StaticResource buttonStyle}"/>
 
                 <ImageButton x:Name="SpeedUpBtn" Source="up_arrow.png" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource imageButtonStyle}"/>
-                <ImageButton x:Name="StopBtn" Source="stop_button.png" Grid.Row="1" Grid.Column="1" Style="{StaticResource imageButtonStyle}"/>
-                <ImageButton x:Name="DirBtn" Source="dir_arrow.png" Grid.Row="2" Grid.Column="1" Style="{StaticResource imageButtonStyle}"/>
+                <ImageButton x:Name="StopBtn" Source="handbrake.png" Grid.Row="1" Grid.Column="1" Style="{StaticResource imageButtonStyle}"/>
+                <ImageButton x:Name="DirBtn" Source="gearbox.png" Grid.Row="2" Grid.Column="1" Style="{StaticResource imageButtonStyle}"/>
                 <ImageButton x:Name="SpeedDwBtn" Source="down_arrow.png" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Style="{StaticResource imageButtonStyle}"/>
             </Grid>
         </StackLayout>
