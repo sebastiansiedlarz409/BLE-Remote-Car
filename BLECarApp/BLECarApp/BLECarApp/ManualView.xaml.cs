@@ -18,7 +18,7 @@ namespace BLECarApp
 
         private byte SPEED = 0;
         private sbyte DIR = 0;
-        private byte FORWARD = 1;
+        private byte FORWARD = 0;
 
         private int Y = 0;
 
@@ -49,16 +49,24 @@ namespace BLECarApp
 
             this.Navigation.PushAsync(new ButtonsView());
             this.Navigation.RemovePage(this);
+
+            SendCommands();
+
+            if (connected)
+            {
+                if (bt != null)
+                    Disconnect();
+            }
         }
 
         private void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
-            Y = (int)((e.Reading.Acceleration.Y*100));
+            Y = (int)((e.Reading.Acceleration.Y*100))/2;
 
             if(SPEED >= 30)
                 DIR = (sbyte)Y;
 
-            ParamsBtn.Text = $"S: {SPEED} DIR: {Y} {(FORWARD == 1 ? "FORWARD" : "BACKWARD")}";
+            ParamsBtn.Text = $"S: {SPEED} DIR: {Y} {(FORWARD == 0 ? "FORWARD" : "BACKWARD")}";
 
             SendCommands();
         }
@@ -118,7 +126,7 @@ namespace BLECarApp
         {
             DIR = 0;
             SPEED = 0;
-            FORWARD = 1;
+            FORWARD = 0;
 
             bt.Disconnect();
             ConnectionBtn.Text = "Connect!";

@@ -15,10 +15,14 @@ extern uint8_t SPEED;
 extern int8_t DIR;
 extern uint8_t FORWARD;
 
+extern void SetPWM(uint8_t channelIndex, uint32_t value);
+
 void BTLE_DisconnectHandler(void){
 	SPEED = 0;
 	DIR = 0;
 	FORWARD = 1;
+	SetPWM(1, 0);
+	SetPWM(2, 0);
 }
 
 void BTLE_CommandsHandler(uint8_t size, uint8_t *buffer){

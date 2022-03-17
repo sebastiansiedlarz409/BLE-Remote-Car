@@ -18,7 +18,7 @@ namespace BLECarApp
 
         private byte SPEED = 0;
         private sbyte DIR = 0;
-        private byte FORWARD = 1;
+        private byte FORWARD = 0;
 
         public ButtonsView()
         {
@@ -41,6 +41,19 @@ namespace BLECarApp
         {
             this.Navigation.PushAsync(new ManualView());
             this.Navigation.RemovePage(this);
+
+            SPEED = 0;
+            DIR = 0;
+
+            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 0 ? "FORWARD" : "BACKWARD")}";
+
+            SendCommands();
+
+            if (connected)
+            {
+                if (bt != null)
+                    Disconnect();
+            }
         }
 
         private void DirBtn_Clicked(object sender, EventArgs e)
@@ -50,27 +63,27 @@ namespace BLECarApp
 
             FORWARD = FORWARD == (byte)1 ? (byte)0 : (byte)1;
 
-            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 1 ? "FORWARD" : "BACKWARD")}";
+            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 0 ? "FORWARD" : "BACKWARD")}";
 
             SendCommands();
         }
 
         private void RightBtn_Clicked(object sender, EventArgs e)
         {
-            if (DIR <= 100)
-                DIR += 20;
+            if (DIR <= 40)
+                DIR += 10;
 
-            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 1 ? "FORWARD" : "BACKWARD")}";
+            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 0 ? "FORWARD" : "BACKWARD")}";
 
             SendCommands();
         }
 
         private void LeftBtn_Clicked(object sender, EventArgs e)
         {
-            if (DIR >= -100)
-                DIR -= 20;
+            if (DIR >= -40)
+                DIR -= 10;
 
-            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 1 ? "FORWARD" : "BACKWARD")}";
+            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 0 ? "FORWARD" : "BACKWARD")}";
 
             SendCommands();
         }
@@ -80,7 +93,7 @@ namespace BLECarApp
             SPEED = 0;
             DIR = 0;
 
-            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 1 ? "FORWARD" : "BACKWARD")}";
+            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 0 ? "FORWARD" : "BACKWARD")}";
 
             SendCommands();
         }
@@ -95,7 +108,7 @@ namespace BLECarApp
                     SPEED -= 10;
             }
 
-            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 1 ? "FORWARD" : "BACKWARD")}";
+            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 0 ? "FORWARD" : "BACKWARD")}";
 
             SendCommands();
         }
@@ -110,7 +123,7 @@ namespace BLECarApp
                     SPEED += 10;
             }
 
-            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 1 ? "FORWARD" : "BACKWARD")}";
+            ParamsBtn.Text = $"S: {SPEED} DIR: {DIR} {(FORWARD == 0 ? "FORWARD" : "BACKWARD")}";
 
             SendCommands();
         }
@@ -126,7 +139,7 @@ namespace BLECarApp
         {
             DIR = 0;
             SPEED = 0;
-            FORWARD = 1;
+            FORWARD = 0;
 
             bt.Disconnect();
             ConnectionBtn.Text = "Connect!";
